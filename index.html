@@ -15,6 +15,7 @@
 ============================================================ */
 
 :root {
+  /* ── DARK THEME (DEFAULT) ── */
   /* Backgrounds — black, dark grey, charcoal */
   --bg-base   : #0d0e12;
   --bg-raised : #13151b;
@@ -46,6 +47,9 @@
   --green : #42b67d;
   --amber : #d4a460;
   --red   : #d46d6d;
+  --purple: #9e90c4;
+  --pink  : #d97e7e;
+  --cyan  : #38aab8;
   --white : #f5f6fa;
 
   /* Shadows — softer */
@@ -66,6 +70,48 @@
   --t     : 220ms;
 }
 
+/* ══ PROFESIONAL DARK THEME ══ */
+[data-theme="professional"] {
+  --bg-base   : #0f1419;
+  --bg-raised : #151a23;
+  --bg-card   : #1d2333;
+  --bg-hover  : #272f3f;
+  --bg-active : #323d52;
+  --blue      : #4f81e8;
+  --blue-light: #6fa8f5;
+  --blue-glow : rgba(79,129,232,0.25);
+  --t1 : rgba(250,251,254,0.96);
+  --t2 : rgba(250,251,254,0.68);
+  --t3 : rgba(250,251,254,0.42);
+  --t4 : rgba(250,251,254,0.20);
+  --t5 : rgba(250,251,254,0.10);
+  --bd1: rgba(210,215,235,0.08);
+  --bd2: rgba(210,215,235,0.14);
+  --bd3: rgba(210,215,235,0.22);
+}
+
+/* ══ SUNSET THEME ══ */
+[data-theme="sunset"] {
+  --bg-base   : #1a1520;
+  --bg-raised : #241a28;
+  --bg-card   : #2f2233;
+  --bg-hover  : #3d2d42;
+  --bg-active : #4a3852;
+  --blue      : #e67e42;
+  --blue-light: #f09857;
+  --blue-glow : rgba(230,126,66,0.25);
+  --t1 : rgba(254,248,244,0.96);
+  --t2 : rgba(254,248,244,0.68);
+  --t3 : rgba(254,248,244,0.42);
+  --t4 : rgba(254,248,244,0.20);
+  --t5 : rgba(254,248,244,0.10);
+  --bd1: rgba(235,210,180,0.08);
+  --bd2: rgba(235,210,180,0.14);
+  --bd3: rgba(235,210,180,0.22);
+  --green: #4db884;
+  --amber: #e8a540;
+}
+
 /* Light theme — elegant greys and navy */
 [data-theme="light"] {
   --bg-base   : #f5f6f9;
@@ -84,6 +130,35 @@
   --s1: 0 1px 3px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.05);
   --s2: 0 4px 12px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.07);
   --s3: 0 12px 32px rgba(0,0,0,0.12), 0 24px 56px rgba(0,0,0,0.08);
+}
+
+/* LIGHT THEME PAGE BACKGROUNDS */
+[data-theme="light"] #page-home {
+  background: linear-gradient(135deg, #f5f6f9 0%, rgba(91,141,219,.08) 50%, #f5f6f9 100%);
+}
+
+[data-theme="light"] #page-timer {
+  background: linear-gradient(180deg, #f5f6f9 0%, rgba(61,110,196,.08) 100%);
+}
+
+[data-theme="light"] #page-flashcards {
+  background: linear-gradient(90deg, #f5f6f9 0%, rgba(91,141,219,.06) 50%, #f5f6f9 100%);
+}
+
+[data-theme="light"] #page-notes {
+  background: linear-gradient(180deg, #f0f1f5 0%, rgba(91,141,219,.04) 100%);
+}
+
+[data-theme="light"] #page-achievements {
+  background: linear-gradient(135deg, #f5f6f9 0%, rgba(212,164,96,.06) 100%);
+}
+
+[data-theme="light"] #page-analytics {
+  background: linear-gradient(90deg, #f5f6f9 0%, rgba(62,168,110,.05) 100%);
+}
+
+[data-theme="light"] #page-settings {
+  background: linear-gradient(180deg, #f0f1f5 0%, #f5f6f9 100%);
 }
 
 /* ── RESET ── */
@@ -189,6 +264,7 @@ body {
 /* ══════════════════════════════════════════════════════════
    PAGES — display:none/block — bulletproof switching
    CRITICAL: no page gets display:grid/flex override on .page
+   UPDATED: Each page now has distinct background styling
 ══════════════════════════════════════════════════════════ */
 .page {
   display: none;
@@ -196,24 +272,138 @@ body {
   inset: 0;
   overflow-y: auto;
   background: var(--bg-base);
+  opacity: 1;
+  transition: opacity 0.5s var(--ease);
 }
-.page.active { display: block; }
+.page.active { display: block; opacity: 1; }
+.page.fade-out { opacity: 0; }
+.page.fade-in { animation: fadeInPage 0.5s var(--ease) forwards; }
+
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 /* Pages that use inner grid layout — the grid is on a CHILD, not .page */
 #page-flashcards.active { display: block; }
 #page-notes.active      { display: block; }
+
+/* PAGE-SPECIFIC BACKGROUNDS — DARK THEME (DEFAULT) */
+#page-home {
+  background: linear-gradient(135deg, #0d0e12 0%, rgba(26,32,56,.4) 50%, #0d0e12 100%);
+}
+
+#page-timer {
+  background: linear-gradient(180deg, #0d0e12 0%, rgba(61,110,196,.08) 100%);
+}
+
+#page-flashcards {
+  background: linear-gradient(90deg, #0d0e12 0%, rgba(26,32,56,.6) 50%, #0d0e12 100%);
+}
+
+#page-notes {
+  background: linear-gradient(180deg, #0d0e12 0%, rgba(37,45,63,.5) 100%);
+}
+
+#page-achievements {
+  background: linear-gradient(135deg, #0d0e12 0%, rgba(196,140,58,.06) 100%);
+}
+
+#page-analytics {
+  background: linear-gradient(90deg, #0d0e12 0%, rgba(62,168,110,.05) 100%);
+}
+
+#page-inspiration {
+  background: linear-gradient(225deg, #0d0e12 0%, rgba(158,144,196,.08) 50%, #0d0e12 100%);
+}
+
+#page-settings {
+  background: linear-gradient(180deg, rgba(19,21,27,.8) 0%, #0d0e12 100%);
+}
+
+/* PROFESSIONAL THEME — Page Backgrounds */
+[data-theme="professional"] #page-home {
+  background: linear-gradient(135deg, #0f1419 0%, rgba(79,129,232,.06) 50%, #0f1419 100%);
+}
+
+[data-theme="professional"] #page-timer {
+  background: linear-gradient(180deg, #0f1419 0%, rgba(79,129,232,.1) 100%);
+}
+
+[data-theme="professional"] #page-flashcards {
+  background: linear-gradient(90deg, #0f1419 0%, rgba(79,129,232,.05) 50%, #0f1419 100%);
+}
+
+[data-theme="professional"] #page-notes {
+  background: linear-gradient(180deg, #0f1419 0%, rgba(79,129,232,.06) 100%);
+}
+
+[data-theme="professional"] #page-achievements {
+  background: linear-gradient(135deg, #0f1419 0%, rgba(196,140,58,.08) 100%);
+}
+
+[data-theme="professional"] #page-analytics {
+  background: linear-gradient(90deg, #0f1419 0%, rgba(62,168,110,.06) 100%);
+}
+
+[data-theme="professional"] #page-inspiration {
+  background: linear-gradient(225deg, #0f1419 0%, rgba(79,129,232,.07) 50%, #0f1419 100%);
+}
+
+[data-theme="professional"] #page-settings {
+  background: linear-gradient(180deg, rgba(15,20,25,.8) 0%, #0f1419 100%);
+}
+
+/* SUNSET THEME — Page Backgrounds */
+[data-theme="sunset"] #page-home {
+  background: linear-gradient(135deg, #1a1520 0%, rgba(230,126,66,.08) 50%, #1a1520 100%);
+}
+
+[data-theme="sunset"] #page-timer {
+  background: linear-gradient(180deg, #1a1520 0%, rgba(230,126,66,.1) 100%);
+}
+
+[data-theme="sunset"] #page-flashcards {
+  background: linear-gradient(90deg, #1a1520 0%, rgba(240,152,87,.06) 50%, #1a1520 100%);
+}
+
+[data-theme="sunset"] #page-notes {
+  background: linear-gradient(180deg, #1a1520 0%, rgba(240,152,87,.08) 100%);
+}
+
+[data-theme="sunset"] #page-achievements {
+  background: linear-gradient(135deg, #1a1520 0%, rgba(232,165,64,.12) 100%);
+}
+
+[data-theme="sunset"] #page-analytics {
+  background: linear-gradient(90deg, #1a1520 0%, rgba(77,184,132,.07) 100%);
+}
+
+[data-theme="sunset"] #page-inspiration {
+  background: linear-gradient(225deg, #1a1520 0%, rgba(158,90,196,.1) 50%, #1a1520 100%);
+}
+
+[data-theme="sunset"] #page-settings {
+  background: linear-gradient(180deg, rgba(36,26,40,.8) 0%, #1a1520 100%);
+}
+
+/* LIGHT THEME — Page Backgrounds */
+[data-theme="light"] #page-inspiration {
+  background: linear-gradient(225deg, #f5f6f9 0%, rgba(91,141,219,.1) 50%, #f5f6f9 100%);
+}
 
 /* ── SHARED COMPONENTS ── */
 .card {
   background: var(--t5);
   border: 1px solid var(--bd1);
   border-radius: var(--r3);
-  transition: background var(--t), border-color var(--t), box-shadow var(--t);
+  transition: background var(--t), border-color var(--t), box-shadow var(--t), transform var(--t);
 }
 .card.i:hover {
   background: var(--t4);
   border-color: var(--bd2);
   box-shadow: var(--s1);
+  transform: translateY(-1px);
 }
 .navy-card {
   background: linear-gradient(135deg, rgba(26,32,56,.5) 0%, rgba(37,45,63,.35) 100%);
@@ -274,6 +464,18 @@ body {
 .inp::placeholder { color: var(--t3); }
 textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
 
+/* Modal inputs */
+#deck-modal .inp {
+  margin-bottom: 16px;
+  background: var(--bg-card);
+  border-color: var(--bd2);
+}
+#deck-modal .inp:focus {
+  border-color: var(--blue-light);
+  background: var(--bg-card);
+}
+
+
 /* Toggle */
 .tog {
   width: 40px; height: 22px;
@@ -293,8 +495,8 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
 
 /* Labels */
 .label { font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--t3); }
-.pg-title { font-size: 22px; font-weight: 700; color: var(--t1); letter-spacing: -.4px; margin-bottom: 2px; }
-.pg-sub { font-size: 12px; color: var(--t3); margin-bottom: 24px; }
+.pg-title { font-size: 28px; font-weight: 700; color: var(--t1); letter-spacing: -.4px; margin-bottom: 4px; background: linear-gradient(135deg, var(--t1), var(--blue-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.pg-sub { font-size: 13px; color: var(--t3); margin-bottom: 26px; font-weight: 400; }
 
 /* Animations */
 @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
@@ -314,6 +516,7 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
   position: relative; width: 100%;
   height: 210px; overflow: hidden;
   border-bottom: 1px solid var(--bd1);
+  background: linear-gradient(135deg, rgba(61,110,196,.08) 0%, transparent);
 }
 #auroraCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
@@ -522,14 +725,23 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
 
 /* Mode chips */
 .mode-chips { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 24px; }
-.mode-chip { padding: 14px 10px; border-radius: var(--r3); border: 1px solid var(--bd1); background: var(--t5); cursor: pointer; text-align: center; transition: all var(--t); }
-.mode-chip:hover { background: var(--t4); border-color: var(--bd2); }
-.mode-chip.on { border-color: var(--blue-light); background: rgba(91,141,219,.09); }
-.mode-chip .mcv { font-family: var(--fm); font-size: 22px; font-weight: 300; color: var(--blue-light); margin-bottom: 3px; }
-.mode-chip .mcl { font-size: 10px; color: var(--t3); }
+.mode-chip { padding: 14px 10px; border-radius: var(--r3); border: 1px solid var(--bd1); background: var(--t5); cursor: pointer; text-align: center; transition: all var(--t); position: relative; }
+.mode-chip:hover { background: var(--t4); border-color: var(--bd2); transform: translateY(-1px); }
+.mode-chip.on { border-color: var(--blue-light); background: rgba(91,141,219,.12); box-shadow: 0 0 0 2px rgba(91,141,219,.08); }
+.mode-chip .mcv { font-family: var(--fm); font-size: 22px; font-weight: 300; color: var(--blue-light); margin-bottom: 6px; }
+.mode-chip .mcl { font-size: 10px; color: var(--t3); font-weight: 500; }
 
 /* Timer controls */
 .timer-controls { display: flex; gap: 8px; justify-content: center; margin-bottom: 28px; }
+
+/* Custom Timer */
+.custom-timer-section {
+  background: rgba(91,141,219,.06);
+  border: 1px solid rgba(91,141,219,.15);
+  border-radius: var(--r3);
+  padding: 20px;
+  margin-bottom: 24px;
+}
 
 /* Ambient */
 .amb-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 26px; }
@@ -568,9 +780,10 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
   padding: 10px 11px; border-radius: var(--r2);
   border: 1px solid transparent; background: transparent;
   cursor: pointer; transition: all var(--t);
+  margin-bottom: 4px;
 }
-.deck-item:hover { background: var(--t4); border-color: var(--bd1); }
-.deck-item.on { border-color: var(--blue-light); background: rgba(91,141,219,.08); }
+.deck-item:hover { background: var(--t4); border-color: var(--bd1); transform: translateX(2px); }
+.deck-item.on { border-color: var(--blue-light); background: rgba(91,141,219,.09); box-shadow: inset 0 0 0 1px var(--bd2); }
 .deck-item-head { display: flex; justify-content: space-between; align-items: center; }
 .deck-name { font-size: 12.5px; font-weight: 500; }
 .deck-del {
@@ -589,6 +802,7 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   padding: 26px; position: relative; overflow: hidden;
+  background: linear-gradient(180deg, transparent 0%, rgba(61,110,196,.02) 100%);
 }
 .fc-top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
 .fc-deckname { font-size: 20px; font-weight: 700; letter-spacing: -.3px; }
@@ -609,8 +823,8 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center; border: 1px solid var(--bd1);
 }
-.card-front { background: linear-gradient(145deg, var(--bg-active), var(--bg-card)); box-shadow: var(--s3); }
-.card-back { background: linear-gradient(145deg, var(--navy-mid), var(--bg-active)); transform: rotateY(180deg); box-shadow: var(--s3); border-color: rgba(91,141,219,.18); }
+.card-front { background: linear-gradient(145deg, var(--bg-active), var(--bg-card)); box-shadow: var(--s3); border-color: rgba(91,141,219,.1); }
+.card-back { background: linear-gradient(145deg, rgba(91,141,219,.08), var(--bg-active)); transform: rotateY(180deg); box-shadow: var(--s3); border-color: rgba(91,141,219,.18); }
 .card-hint { font-size: 9.5px; color: var(--t3); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
 .card-content { font-size: 19px; font-weight: 500; line-height: 1.5; color: var(--t1); }
 .card-tag { position: absolute; top: 12px; right: 14px; font-size: 10px; color: var(--t3); background: var(--t5); padding: 2px 8px; border-radius: 5px; }
@@ -661,9 +875,10 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
 .notes-sidebar {
   background: var(--bg-raised);
   border-right: 1px solid var(--bd1);
-  padding: 16px 10px;
-  display: flex; flex-direction: column; gap: 3px;
+  padding: 12px 10px;
+  display: flex; flex-direction: column; gap: 0;
   overflow-y: auto;
+  min-width: 200px;
 }
 .notes-sb-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; padding: 0 3px; }
 
@@ -671,14 +886,15 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
   padding: 9px 11px; border-radius: var(--r2);
   cursor: pointer; border: 1px solid transparent;
   transition: all var(--t);
+  margin-bottom: 3px;
 }
-.note-list-item:hover { background: var(--t4); }
-.note-list-item.on { background: var(--t4); border-color: var(--bd2); }
-.note-item-title { font-size: 12px; font-weight: 500; }
-.note-item-preview { font-size: 10.5px; color: var(--t3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+.note-list-item:hover { background: var(--t4); transform: translateX(2px); }
+.note-list-item.on { background: linear-gradient(135deg, rgba(91,141,219,.12), rgba(61,110,196,.08)); border-color: var(--bd2); box-shadow: inset 0 0 0 1px rgba(91,141,219,.2); }
+.note-item-title { font-size: 12px; font-weight: 500; color: var(--t1); }
+.note-item-preview { font-size: 10.5px; color: var(--t3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
 .note-item-date { font-size: 9px; color: var(--t4); margin-top: 2px; }
 
-.notes-editor { display: flex; flex-direction: column; overflow: hidden; }
+.notes-editor { display: flex; flex-direction: column; overflow: hidden; background: linear-gradient(180deg, transparent 0%, rgba(91,141,219,.015) 50%, transparent 100%); }
 .editor-toolbar {
   padding: 8px 18px; border-bottom: 1px solid var(--bd1);
   display: flex; align-items: center; gap: 2px;
@@ -733,10 +949,23 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
   padding: 14px 9px; border-radius: var(--r3);
   border: 1px solid var(--bd1); background: var(--t5);
   text-align: center; transition: all var(--t); cursor: default;
+  position: relative; overflow: hidden;
+}
+.badge-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(91,141,219,.1), transparent);
+  opacity: 0;
+  transition: opacity var(--t);
+  pointer-events: none;
 }
 .badge-tile:hover { transform: translateY(-2px); box-shadow: var(--s1); }
+.badge-tile:hover::before { opacity: 1; }
 .badge-tile.unlocked { border-color: rgba(212,164,96,.28); background: rgba(212,164,96,.05); }
-.badge-emoji { font-size: 25px; margin-bottom: 6px; }
+.badge-tile.unlocked .badge-emoji { animation: bounce .6s ease-in-out infinite; }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.badge-emoji { font-size: 25px; margin-bottom: 6px; display: inline-block; }
 .badge-name { font-size: 10px; color: var(--t2); }
 .badge-tile.locked .badge-emoji { filter: grayscale(1); opacity: .2; }
 .badge-tile.locked .badge-name { color: var(--t4); }
@@ -764,6 +993,29 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
 .color-chip:hover { transform: scale(1.22); }
 .color-chip.on { border-color: var(--t1); transform: scale(1.12); }
 
+/* Theme selection */
+.theme-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: var(--r3);
+  border: 1px solid var(--bd2);
+  background: var(--t5);
+  color: var(--t2);
+  font-family: var(--ff);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--t);
+}
+.theme-chip:hover { background: var(--t4); border-color: var(--bd3); }
+.theme-chip.on {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(61,110,196,.28);
+}
+
 .font-select {
   background: var(--t4); border: 1px solid var(--bd2);
   border-radius: var(--r1); color: var(--t1);
@@ -771,6 +1023,34 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
   outline: none; cursor: pointer;
 }
 .pomo-num-input { width: 54px; text-align: center; font-family: var(--fm); }
+
+/* ══════════════════════════════════════════════════════════
+   DECK MODAL
+══════════════════════════════════════════════════════════ */
+#deck-modal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.65); backdrop-filter: blur(20px);
+  z-index: 9005; display: none; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+#deck-modal.open {
+  display: flex; opacity: 1; pointer-events: all;
+}
+.modal-card {
+  background: var(--bg-active); border: 1px solid var(--bd3);
+  border-radius: var(--r4); padding: 24px;
+  width: 90%; max-width: 420px; box-shadow: var(--s3);
+  animation: modalIn .3s var(--spring) both;
+}
+@keyframes modalIn { from { opacity:0; transform:scale(.93) translateY(-20px); } to { opacity:1; transform:scale(1) translateY(0); } }
+.modal-title {
+  font-size: 18px; font-weight: 700; color: var(--t1);
+  margin-bottom: 16px; letter-spacing: -.3px;
+}
+.modal-actions {
+  display: flex; gap: 8px; margin-top: 18px;
+  justify-content: flex-end;
+}
 
 /* ══════════════════════════════════════════════════════════
    OVERLAYS
@@ -875,7 +1155,7 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
   display: flex; flex-direction: column; gap: 8px;
   transition: all var(--t);
 }
-.stat-box:hover { background: var(--bg-hover); border-color: var(--bd2); }
+.stat-box:hover { background: var(--bg-hover); border-color: var(--bd2); transform: translateY(-2px); box-shadow: var(--s1); }
 .stat-box-label { font-size: 11px; color: var(--t3); text-transform: uppercase; letter-spacing: 1px; }
 .stat-box-value { font-size: 32px; font-weight: 700; color: var(--t1); letter-spacing: -.5px; }
 .stat-box-sub { font-size: 11px; color: var(--t3); }
@@ -911,6 +1191,9 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
 </style>
 </head>
 <body>
+
+<!-- Audio Context for Ambient Sounds (Web Audio API) -->
+<canvas id="ambientCanvas" style="display:none"></canvas>
 
 <!-- Background particles (focus mode) -->
 <canvas id="particles-canvas"></canvas>
@@ -988,6 +1271,10 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="3" x2="21" y2="3"/><path d="M3 12h4v9H3z"/><path d="M11 6h4v15h-4z"/><path d="M19 9h4v12h-4z"/></svg>
       <span class="tip">Analytics · ⌘6</span>
     </button>
+    <button class="sb-btn" id="nav-inspiration" onclick="showPage('inspiration')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1"/><path d="M14 10h.01"/><path d="M15 14h.01"/></svg>
+      <span class="tip">Inspiration · ⌘7</span>
+    </button>
 
     <div class="sb-sep"></div>
     <div class="sb-spacer"></div>
@@ -1025,6 +1312,16 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
               </div>
             </div>
             <div class="hero-quote a1" id="heroQuote">"The secret of getting ahead is getting started." — Mark Twain</div>
+            <div class="hero-stats a2" style="display:flex;gap:20px;margin-top:8px">
+              <div style="text-align:left">
+                <div style="font-size:11px;color:rgba(255,255,255,.3)">CURRENT STREAK</div>
+                <div style="font-size:22px;font-weight:700;color:var(--amber);margin-top:2px" id="heroStreak">0 🔥</div>
+              </div>
+              <div style="text-align:left">
+                <div style="font-size:11px;color:rgba(255,255,255,.3)">FOCUS TODAY</div>
+                <div style="font-size:22px;font-weight:700;color:var(--blue-light);margin-top:2px" id="heroFocusTime">0.0h</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1156,8 +1453,24 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
 
           <div class="tab-row a1">
             <button class="tab-pill on" id="tabPomo" onclick="switchTimerTab('pomo')">Pomodoro</button>
+            <button class="tab-pill"    id="tabCustom" onclick="switchTimerTab('custom')">Custom</button>
             <button class="tab-pill"    id="tabSw"   onclick="switchTimerTab('sw')">Stopwatch</button>
             <button class="tab-pill"    id="tabClk"  onclick="switchTimerTab('clk')">Clock</button>
+          </div>
+
+          <!-- Custom Timer Input -->
+          <div class="custom-timer-section a1" id="customTimerSection" style="display:none">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+              <div>
+                <label class="label" style="display:block;margin-bottom:6px">Minutes</label>
+                <input type="number" id="customMins" min="0" max="120" value="25" class="inp" style="font-size:14px;text-align:center">
+              </div>
+              <div>
+                <label class="label" style="display:block;margin-bottom:6px">Seconds</label>
+                <input type="number" id="customSecs" min="0" max="59" value="0" class="inp" style="font-size:14px;text-align:center">
+              </div>
+            </div>
+            <button class="btn primary" onclick="setCustomTimer()" style="width:100%">Set Timer</button>
           </div>
 
           <!-- Analog clock -->
@@ -1289,6 +1602,7 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
               <button onclick="deleteCurrentNote()" style="background:transparent;border:none;color:var(--t3);cursor:pointer;font-size:13px;padding:0 3px" title="Delete">🗑</button>
             </div>
           </div>
+          <input type="text" id="notesSearchInput" class="inp" placeholder="Search notes…" oninput="filterNotesList(this.value)" style="margin:8px 8px 12px;font-size:12px">
           <div id="notesList"></div>
         </div>
 
@@ -1345,6 +1659,27 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
         <div class="label a2" style="margin:18px 0 12px">Badges</div>
         <div class="badges-grid a2" id="badgesGrid"></div>
 
+        <!-- Insights Card -->
+        <div style="margin-top:28px;padding-bottom:20px">
+          <div class="label">Performance Insights</div>
+          <div class="card" style="padding:18px;margin-top:10px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div>
+                <div style="font-size:11px;color:var(--t3);margin-bottom:6px">Unlocked Badges</div>
+                <div style="font-size:24px;font-weight:700;color:var(--blue-light)" id="achUnlockedCount">0</div>
+                <div style="font-size:10px;color:var(--t3);margin-top:3px">/ 11 total</div>
+              </div>
+              <div>
+                <div style="font-size:11px;color:var(--t3);margin-bottom:6px">Achievement %</div>
+                <div style="font-size:24px;font-weight:700;color:var(--green)" id="achPercent">0%</div>
+                <div style="height:3px;background:var(--bd1);border-radius:3px;margin-top:6px;overflow:hidden">
+                  <div id="achPercentBar" style="height:100%;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .6s var(--ease);width:0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div><!-- /page-achievements -->
 
@@ -1397,13 +1732,6 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
         <div class="chart-container a2">
           <div class="chart-title">Weekly Activity</div>
           <div class="weekly-grid" id="weeklyActivity">
-            <div class="day-box"><div class="day-label">Mon</div><div class="day-val">2.5h</div></div>
-            <div class="day-box"><div class="day-label">Tue</div><div class="day-val">0h</div></div>
-            <div class="day-box"><div class="day-label">Wed</div><div class="day-val">1.8h</div></div>
-            <div class="day-box"><div class="day-label">Thu</div><div class="day-val">3.2h</div></div>
-            <div class="day-box"><div class="day-label">Fri</div><div class="day-val">2.1h</div></div>
-            <div class="day-box"><div class="day-label">Sat</div><div class="day-val">3.5h</div></div>
-            <div class="day-box active"><div class="day-label">Sun</div><div class="day-val">2.0h</div></div>
           </div>
         </div>
 
@@ -1445,8 +1773,8 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
         <div class="settings-section a1">
           <div class="settings-section-title">Appearance</div>
           <div class="settings-row">
-            <div><div class="s-row-label">Dark Mode</div><div class="s-row-sub">Toggle dark / light theme</div></div>
-            <div class="tog on" id="darkModeToggle" onclick="toggleTheme()"></div>
+            <div class="s-row-label">Themes</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap" id="themeChips"></div>
           </div>
           <div class="settings-row">
             <div class="s-row-label">Accent Colour</div>
@@ -1512,6 +1840,40 @@ textarea.inp { resize: vertical; min-height: 88px; line-height: 1.65; }
       </div>
     </div><!-- /page-settings -->
 
+    <!-- ═══ INSPIRATION & VISION BOARD ═══ -->
+    <div class="page" id="page-inspiration">
+      <div style="padding: 20px 24px; max-width: 1200px; margin: 0 auto;">
+        <div class="pg-title a0">Inspiration Wall</div>
+        <div class="pg-sub a1">Visualize your goals. Fuel your motivation.</div>
+
+        <!-- Add New Vision -->
+        <div class="card" style="margin-top:20px;padding:20px;background:rgba(158,144,196,.05);border:1px solid rgba(158,144,196,.15)" id="visionAddCard">
+          <div style="display:flex;gap:10px;margin-bottom:12px;align-items:center">
+            <input id="visionTitle" class="inp" placeholder="Your dream or goal..." style="flex:1;font-size:13px">
+            <input id="visionEmoji" class="inp" placeholder="🎯" style="width:50px;text-align:center;font-size:18px">
+          </div>
+          <textarea id="visionDesc" class="inp" placeholder="Why is this important? What will it mean for you?" style="font-size:12px;min-height:60px;resize:vertical"></textarea>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button class="btn primary" onclick="addVision()" style="flex:1">+ Add Vision</button>
+            <button class="btn sm" onclick="addRandomMotivation()">Random Quote</button>
+          </div>
+        </div>
+
+        <!-- Visions Grid -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:24px" id="visionGrid"></div>
+
+        <!-- Daily Motivation -->
+        <div class="card" style="margin-top:32px;padding:28px;text-align:center;background:linear-gradient(135deg,rgba(158,144,196,.08) 0%,rgba(79,129,232,.06) 100%);border:1px solid rgba(158,144,196,.2)">
+          <div style="font-size:28px;margin-bottom:8px">✨</div>
+          <div style="font-size:18px;font-weight:600;color:var(--t1);margin-bottom:4px">Today's Mantra</div>
+          <div id="dailyMantra" style="font-size:14px;color:var(--t2);font-style:italic;line-height:1.6;margin-top:12px"></div>
+          <button class="btn sm" onclick="nextMantra()" style="margin-top:16px">Next →</button>
+        </div>
+
+        <div style="height:40px"></div>
+      </div>
+    </div><!-- /page-inspiration -->
+
   </div><!-- /main -->
 </div><!-- /app -->
 
@@ -1532,7 +1894,8 @@ const DEFAULTS = {
   timerTab:'pomo', timerLabel:'FOCUS SESSION', timerSessions:0,
   music:{playing:false,track:0,prog:0},
   pomoFocus:25, pomoShort:5, pomoLong:15,
-  unlockedAch:[]
+  unlockedAch:[], ambientVolume:0.4,
+  visions:[]
 };
 
 let ST = {};
@@ -1566,6 +1929,7 @@ const ACH_DATA = [
   {id:'early',   name:'Early Bird',    icon:'🌅', desc:'Study before 7 AM'},
   {id:'night',   name:'Night Owl',     icon:'🦉', desc:'Study after 11 PM'},
   {id:'zen',     name:'Zen Mode',      icon:'🧘', desc:'Use ambient sounds'},
+  {id:'dreamer', name:'Visionary',     icon:'✨', desc:'Create your first vision'},
 ];
 let UNLOCKED = new Set();
 
@@ -1598,17 +1962,31 @@ function refreshAllXP() {
   setText('xpNote', `Level ${lv} · ${500-lxp} XP to next level`);
 }
 
+// ── PAGE ORDER for scroll-to-next ────────────────────────────
+const PAGE_ORDER = ['home', 'timer', 'flashcards', 'notes', 'achievements', 'analytics', 'inspiration', 'settings'];
+let isAutoSwitching = false;
+
 // ── NAVIGATION ─────────────────────────────────────────────────
-function showPage(name) {
+function showPage(name, smooth = false) {
+  if (isAutoSwitching && !smooth) return; // Prevent rapid clicking during auto-switch
+  
   // Hide all pages
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active', 'fade-in');
+    p.classList.add('fade-out');
+  });
   // Remove active from all nav buttons
   document.querySelectorAll('.sb-btn').forEach(b => b.classList.remove('on'));
 
-  // Show requested page
+  // Show requested page after fade
   const pg = document.getElementById('page-'+name);
   if (!pg) return;
-  pg.classList.add('active');
+  
+  setTimeout(() => {
+    pg.classList.remove('fade-out');
+    pg.classList.add('active', 'fade-in');
+    pg.scrollTop = 0; // Reset scroll position
+  }, smooth ? 250 : 0);
 
   // Highlight nav button
   const nb = document.getElementById('nav-'+name);
@@ -1622,9 +2000,45 @@ function showPage(name) {
   if (name === 'notes')        renderNotes();
   if (name === 'achievements') renderAchievements();
   if (name === 'analytics')    renderAnalytics();
+  if (name === 'inspiration')  renderInspiration();
   if (name === 'settings')     renderSettings();
 
   saveState();
+}
+
+// ── SCROLL-TO-NEXT-PAGE LISTENER ──────────────────────────────
+function setupScrollPagination() {
+  const main = document.getElementById('main');
+  if (!main) return;
+  
+  main.addEventListener('scroll', () => {
+    // Only check on active page
+    const activePage = document.querySelector('.page.active');
+    if (!activePage) return;
+    
+    const scrollTop = activePage.scrollTop;
+    const scrollHeight = activePage.scrollHeight;
+    const clientHeight = activePage.clientHeight;
+    const scrollPercent = (scrollTop + clientHeight) / scrollHeight;
+    
+    // When user scrolls to 85% of page height, go to next page
+    if (scrollPercent > 0.85 && !isAutoSwitching) {
+      const currentIdx = PAGE_ORDER.indexOf(ST.pg);
+      if (currentIdx !== -1 && currentIdx < PAGE_ORDER.length - 1) {
+        isAutoSwitching = true;
+        const nextPage = PAGE_ORDER[currentIdx + 1];
+        showPage(nextPage, true);
+        setTimeout(() => { isAutoSwitching = false; }, 600);
+      }
+    }
+  });
+}
+
+// Initialize scroll pagination on load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupScrollPagination);
+} else {
+  setupScrollPagination();
 }
 
 // ── HELPERS ───────────────────────────────────────────────────
@@ -1674,6 +2088,8 @@ function renderHome() {
   setText('statHours', (ST.studySecs/3600).toFixed(1));
   setText('statSessions', ST.sessions);
   setText('statStreak', ST.streak);
+  setText('heroStreak', ST.streak + ' 🔥');
+  setText('heroFocusTime', (ST.studySecs/3600).toFixed(1) + 'h');
   setText('statNotes', ST.notes.length);
   setText('musicTitle', TRACKS[ST.music.track||0]);
   updateHomeTimer();
@@ -1726,20 +2142,32 @@ let timerInterval = null;
 
 function switchTimerTab(tab) {
   ST.timerTab = tab;
-  ['pomo','sw','clk'].forEach(t => $('tab'+t.charAt(0).toUpperCase()+t.slice(1))?.classList.remove('on'));
-  $('tab'+tab.charAt(0).toUpperCase()+tab.slice(1))?.classList.add('on');
+  ['pomo','custom','sw','clk'].forEach(t => {
+    const btn = $('tab'+t.charAt(0).toUpperCase()+t.slice(1));
+    if(btn) btn.classList.remove('on');
+  });
+  const btnId = tab==='pomo'?'Pomo': tab==='custom'?'Custom': tab==='sw'?'Sw':'Clk';
+  $('tab'+btnId)?.classList.add('on');
 
-  const chips = $('modeChips'), analog = $('analogWrap');
+  const chips = $('modeChips'), analog = $('analogWrap'), custom = $('customTimerSection');
   const disp  = $('timerDisplay'), lbl = $('timerLabel');
 
   if(tab==='clk') {
     if(chips) chips.style.display='none';
     if(analog) analog.style.display='flex';
+    if(custom) custom.style.display='none';
     if(disp) disp.style.display='none';
     if(lbl) lbl.style.display='none';
+  } else if(tab==='custom') {
+    if(chips) chips.style.display='none';
+    if(analog) analog.style.display='none';
+    if(custom) custom.style.display='block';
+    if(disp) disp.style.display='block';
+    if(lbl) lbl.style.display='block';
   } else {
     if(chips) chips.style.display = tab==='pomo'?'grid':'none';
     if(analog) analog.style.display='none';
+    if(custom) custom.style.display='none';
     if(disp) disp.style.display='block';
     if(lbl) lbl.style.display='block';
   }
@@ -1796,6 +2224,21 @@ function resetTimer() {
   ST.timerSecs = ST.timerTab==='sw' ? 0 : ST.timerTotal;
   refreshTimerDisplays();
 }
+
+function setCustomTimer() {
+  const mins = parseInt($('customMins')?.value || 25);
+  const secs = parseInt($('customSecs')?.value || 0);
+  const totalSecs = mins * 60 + secs;
+  if(totalSecs <= 0) { showNotif('⚠️','Invalid time','Enter minutes and/or seconds'); return; }
+  stopTimer();
+  ST.timerTotal = totalSecs;
+  ST.timerSecs = totalSecs;
+  ST.timerLabel = `CUSTOM (${pad2(mins)}:${pad2(secs)})`;
+  refreshTimerDisplays();
+  setText('timerLabel', ST.timerLabel);
+  showNotif('⏱','Timer set',`${mins}m ${secs}s`);
+}
+
 function refreshTimerDisplays() {
   const t = fmtTime(ST.timerSecs);
   setText('timerDisplay', t);
@@ -1826,13 +2269,126 @@ function toggleFocusMode() {
 }
 function exitFocusMode() { focusModeOn=false; $('focus-overlay')?.classList.remove('on'); }
 
-// Ambient
+// ── AMBIENT SOUNDS WITH WEB AUDIO API ───────────────────────────────────────
+let audioContext = null;
 let currentAmbient = null;
+let ambientVolume = 0.4;
+let ambientOscillators = [];
+let ambientGains = [];
+
+function initAudioContext() {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  return audioContext;
+}
+
+function stopAllAmbient() {
+  ambientOscillators.forEach(osc => {
+    try { osc.stop(); } catch(e) {}
+  });
+  ambientGains.forEach(gain => {
+    gain.gain.setValueAtTime(0, audioContext.currentTime);
+  });
+  ambientOscillators = [];
+  ambientGains = [];
+}
+
 function toggleAmbient(name, el) {
+  initAudioContext();
   document.querySelectorAll('.amb-tile').forEach(t=>t.classList.remove('on'));
-  if(currentAmbient===name) { currentAmbient=null; return; }
-  currentAmbient=name; el.classList.add('on');
-  unlock('zen'); showNotif('🎵','Ambient: '+name,'Playing softly…');
+  
+  if(currentAmbient === name) {
+    stopAllAmbient();
+    currentAmbient = null;
+    return;
+  }
+  
+  stopAllAmbient();
+  currentAmbient = name;
+  el.classList.add('on');
+  
+  const ctx = audioContext;
+  const masterGain = ctx.createGain();
+  masterGain.gain.value = ambientVolume;
+  masterGain.connect(ctx.destination);
+  
+  if (name === 'Rain') {
+    // Brown noise (rain effect)
+    const bufferSize = ctx.sampleRate * 2;
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    let lastOut = 0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      output[i] = (lastOut + (0.02 * white)) / 1.02;
+      lastOut = output[i];
+    }
+    const source = ctx.createBufferSource();
+    source.buffer = noiseBuffer;
+    source.loop = true;
+    
+    // Filter for rain effect
+    const lpf = ctx.createBiquadFilter();
+    lpf.type = 'lowpass';
+    lpf.frequency.value = 2000;
+    source.connect(lpf);
+    lpf.connect(masterGain);
+    source.start(0);
+    ambientOscillators.push(source);
+  } else if (name === 'Lo-fi') {
+    // Chillwave beats
+    const notes = [130.81, 164.81, 196.00, 246.94]; // C3, E3, G3, B3
+    for (let i = 0; i < 2; i++) {
+      const osc = ctx.createOscillator();
+      osc.frequency.value = notes[i % notes.length];
+      osc.type = 'sine';
+      const gain = ctx.createGain();
+      gain.gain.value = 0.15;
+      osc.connect(gain);
+      gain.connect(masterGain);
+      osc.start(0);
+      ambientOscillators.push(osc);
+      ambientGains.push(gain);
+    }
+  } else if (name === 'Fireplace') {
+    // Crackling white noise filtered
+    const bufferSize = ctx.sampleRate * 2;
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+    const source = ctx.createBufferSource();
+    source.buffer = noiseBuffer;
+    source.loop = true;
+    
+    const hpf = ctx.createBiquadFilter();
+    hpf.type = 'highpass';
+    hpf.frequency.value = 200;
+    source.connect(hpf);
+    hpf.connect(masterGain);
+    source.start(0);
+    ambientOscillators.push(source);
+  } else if (name === 'White Noise') {
+    // Pure white noise
+    const bufferSize = ctx.sampleRate * 2;
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+    const source = ctx.createBufferSource();
+    source.buffer = noiseBuffer;
+    source.loop = true;
+    source.connect(masterGain);
+    source.start(0);
+    ambientOscillators.push(source);
+  }
+  
+  ambientGains.push(masterGain);
+  unlock('zen');
+  showNotif('🎵','Ambient: '+name,'Playing softly…');
 }
 
 // Mini widget
@@ -1940,6 +2496,47 @@ let autoSaveTimer = null;
 
 function renderNotes() {
   const list=$('notesList'); if(!list)return;
+  displayNotesList(ST.notes);
+  if(ST.activeNote) openNote(ST.activeNote);
+}
+
+function displayNotesList(notesToShow) {
+  const list = $('notesList');
+  if(!list) return;
+  list.innerHTML='';
+  if(!notesToShow.length){
+    if(ST.notes.length > 0) {
+      list.innerHTML='<div style="font-size:11px;color:var(--t3);padding:12px 4px">No matches found.</div>';
+    } else {
+      list.innerHTML='<div style="font-size:11px;color:var(--t3);padding:12px 4px">No notes yet.</div>';
+    }
+    return;
+  }
+  notesToShow.forEach(n=>{
+    const prev=(n.body||'').replace(/<[^>]+>/g,'').slice(0,42);
+    const d=document.createElement('div');
+    d.className='note-list-item'+(ST.activeNote===n.id?' on':'');
+    d.innerHTML=`<div class="note-item-title">${escH(n.title||'Untitled')}</div><div class="note-item-preview">${escH(prev)||'—'}</div><div class="note-item-date">${n.date}</div>`;
+    d.onclick=()=>openNote(n.id);
+    list.appendChild(d);
+  });
+}
+
+function filterNotesList(query) {
+  if(!query.trim()) {
+    displayNotesList(ST.notes);
+    return;
+  }
+  const q = query.toLowerCase();
+  const filtered = ST.notes.filter(n => 
+    (n.title&&n.title.toLowerCase().includes(q)) || 
+    (n.body&&n.body.toLowerCase().includes(q))
+  );
+  displayNotesList(filtered);
+}
+
+function renderNotes_old() {
+  const list=$('notesList'); if(!list)return;
   list.innerHTML='';
   if(!ST.notes.length){list.innerHTML='<div style="font-size:11px;color:var(--t3);padding:12px 4px">No notes yet.</div>';}
   ST.notes.forEach(n=>{
@@ -1969,6 +2566,8 @@ function addNote() {
   ST.notes.unshift(n); ST.activeNote=n.id;
   if(ST.notes.length>=5)unlock('n5');
   gainXP(5,'Note created!');
+  const searchInput = $('notesSearchInput');
+  if(searchInput) searchInput.value = '';
   renderNotes();
   const ti=$('noteTitleInput'), bo=$('noteBody');
   if(ti){ti.value='';ti.focus();} if(bo) bo.innerHTML='';
@@ -2013,9 +2612,45 @@ function applyFmt(cmd) {
 }
 function clearNoteContent() { const bo=$('noteBody');if(bo){bo.innerHTML='';onNoteEdit();} }
 
+// ── STUDY CHART & WEEKLY ACTIVITY ──────────────────────────────
+function renderStudyChart() {
+  const ch = $('dailyChart');
+  if(!ch) return;
+  ch.innerHTML = '';
+  for(let i=0; i<7; i++) {
+    const d = document.createElement('div');
+    d.className = 'bar' + (i === 6 ? ' today' : '');
+    const h = Math.random() * 60 + 10;
+    d.style.height = h+'%';
+    ch.appendChild(d);
+  }
+}
+
+function renderWeeklyActivity() {
+  const wa = $('weeklyActivity');
+  if(!wa) return;
+  wa.innerHTML = '';
+  const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const today = new Date().getDay();
+  days.forEach((day, idx) => {
+    const d = document.createElement('div');
+    d.className = 'day-box' + (idx === today-1 ? ' active' : '');
+    d.innerHTML = `<div class="day-label">${day}</div><div class="day-val">0h</div>`;
+    wa.appendChild(d);
+  });
+}
+
 // ── ACHIEVEMENTS ──────────────────────────────────────────────
 function renderAchievements() {
   refreshAllXP();
+  const unlockedCount = UNLOCKED.size;
+  const totalBadges = ACH_DATA.length;
+  const pct = Math.round((unlockedCount / totalBadges) * 100);
+  
+  setText('achUnlockedCount', unlockedCount);
+  setText('achPercent', pct + '%');
+  setWidth('achPercentBar', pct);
+  
   const g=$('badgesGrid'); if(!g)return; g.innerHTML='';
   ACH_DATA.forEach(a=>{
     const u=UNLOCKED.has(a.id);
@@ -2029,22 +2664,40 @@ function renderAchievements() {
 // ── ANALYTICS ──────────────────────────────────────────────
 function renderAnalytics() {
   const totHours = ST.studySecs / 3600;
-  const weekHours = Math.random() * 20 + 5; // Mock data
   const avgSession = ST.sessions > 0 ? ST.studySecs / ST.sessions / 60 : 0;
-  setText('analyticsWeekHours', weekHours.toFixed(1));
+  setText('analyticsWeekHours', totHours.toFixed(1));
   setText('analyticsStreak', ST.streak);
   setText('analyticsTotalTime', totHours.toFixed(1)+'h');
   setText('analyticsAvgSession', avgSession.toFixed(0)+'m');
-  setText('analyticsBestDay', 'Sunday');
+  setText('analyticsBestDay', ST.sessions > 0 ? 'Today' : '—');
   setText('analyticsNotesCount', ST.notes.length);
-  setText('analyticsWeekSessions', Math.floor(ST.sessions * 0.6));
-  setText('analyticsCardsReviewed', ST.decks.reduce((a,d)=>a+d.cards.length,0));
+  setText('analyticsWeekSessions', ST.sessions);
+  setText('analyticsCardsReviewed', ST.decks.reduce((a,d)=>a+d.cards.filter(c=>c.interval>1).length,0));
+  renderStudyChart();
+  renderWeeklyActivity();
 }
 
 // ── SETTINGS ──────────────────────────────────────────────────
 const ACCENT_COLORS=['#4a7fe0','#3ea86e','#c48c3a','#9e90c4','#c44870','#38aab8','#6ea83e'];
+const THEMES = ['dark','professional','sunset','light'];
+const THEME_LABELS = {dark:'Dark Navy', professional:'Professional', sunset:'Sunset Warmth', light:'Light Clean'};
 
 function renderSettings() {
+  // Themes
+  const tc=$('themeChips'); 
+  if(tc) {
+    tc.innerHTML='';
+    THEMES.forEach(theme=>{
+      const el=document.createElement('button');
+      el.className='theme-chip'+(ST.theme===theme?' on':'');
+      el.textContent=THEME_LABELS[theme];
+      el.style.gap='4px';
+      el.onclick=()=>setTheme(theme);
+      tc.appendChild(el);
+    });
+  }
+  
+  // Colors
   $('darkModeToggle')?.classList.toggle('on', document.documentElement.getAttribute('data-theme')==='dark');
   const ch=$('colorChips'); if(!ch)return; ch.innerHTML='';
   ACCENT_COLORS.forEach(c=>{
@@ -2055,13 +2708,18 @@ function renderSettings() {
   });
 }
 
+function setTheme(theme) {
+  ST.theme = theme;
+  document.documentElement.setAttribute('data-theme', theme);
+  renderSettings();
+  saveState();
+  showNotif('🎨','Theme Changed',THEME_LABELS[theme]);
+}
+
 function toggleTheme() {
   const cur=document.documentElement.getAttribute('data-theme');
   const next=cur==='dark'?'light':'dark';
-  document.documentElement.setAttribute('data-theme',next);
-  ST.theme=next;
-  $('darkModeToggle')?.classList.toggle('on',next==='dark');
-  saveState(); showNotif('🎨','Theme: '+(next==='dark'?'Dark':'Light'),'');
+  setTheme(next);
 }
 
 function setAccentColor(c) {
@@ -2114,6 +2772,7 @@ const COMMANDS=[
   {icon:'📓',label:'Notes',              action:()=>showPage('notes'),        kbd:'⌘4',section:'Navigate'},
   {icon:'🏆',label:'Achievements',       action:()=>showPage('achievements'), kbd:'⌘5',section:'Navigate'},
   {icon:'📊',label:'Analytics',          action:()=>showPage('analytics'),    kbd:'⌘6',section:'Navigate'},
+  {icon:'✨',label:'Inspiration',        action:()=>showPage('inspiration'),  kbd:'⌘7',section:'Navigate'},
   {icon:'⚙️',label:'Settings',           action:()=>showPage('settings'),     kbd:'⌘,',section:'Navigate'},
   {icon:'▶',label:'Start / Pause Timer', action:()=>{showPage('timer');setTimeout(toggleTimer,150);},kbd:'⌘P',section:'Timer'},
   {icon:'↺',label:'Reset Timer',         action:()=>{showPage('timer');setTimeout(resetTimer,150);},          section:'Timer'},
@@ -2124,7 +2783,88 @@ const COMMANDS=[
 ];
 let cmdIsOpen=false, cmdSelected=0;
 
+// ── MOTIVATION WALL / VISION BOARD ────────────────────────────────────────────
+const MANTRAS = [
+  "Every great achievement starts with a decision to try.",
+  "Your potential is limitless when you believe in yourself.",
+  "Progress over perfection. Small steps lead to big dreams.",
+  "The best time to start was yesterday. The second best time is now.",
+  "You are capable of incredible things. Go show the world.",
+  "Today's effort is tomorrow's achievement.",
+  "Excellence is a habit, not a destination.",
+  "Your vision is valid. Your dreams matter.",
+  "Consistency is the bridge between goals and accomplishments.",
+  "Every moment is a fresh beginning.",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+  "The only way to do great work is to love what you do.",
+  "Believe you can and you're halfway there.",
+  "Your limitations are only your imagination.",
+  "Don't watch the clock; do what it does. Keep going."
+];
+
+let manttraIndex = 0;
+
+function renderInspiration() {
+  // Render visions
+  const grid = $('visionGrid');
+  if (grid) {
+    grid.innerHTML = (ST.visions || []).map((v, i) => `
+      <div class="card" style="padding:20px;position:relative;overflow:hidden;border:1px solid rgba(158,144,196,.15);display:flex;flex-direction:column;transition:all 0.3s var(--ease)" onmouseover="this.style.borderColor='rgba(158,144,196,.4)';this.style.boxShadow='0 8px 24px rgba(158,144,196,.1)'" onmouseout="this.style.borderColor='rgba(158,144,196,.15)';this.style.boxShadow='none'">
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(158,144,196,.02) 0%,transparent 100%);pointer-events:none"></div>
+        <div style="position:relative;z-index:1">
+          <div style="font-size:32px;margin-bottom:8px">${v.emoji || '🎯'}</div>
+          <div style="font-size:16px;font-weight:600;color:var(--t1);margin-bottom:8px">${escH(v.title)}</div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.5;margin-bottom:12px;flex:1">${escH(v.desc)}</div>
+          <button class="btn sm ghost" onclick="removeVision(${i})">Remove</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  // Show daily mantra
+  nextMantra();
+}
+
+function addVision() {
+  const title = $('visionTitle').value.trim();
+  const desc = $('visionDesc').value.trim();
+  const emoji = $('visionEmoji').value.trim();
+  
+  if (!title) return showNotif('⚠','Empty Vision','Please enter a goal');
+  
+  if (!ST.visions) ST.visions = [];
+  ST.visions.push({ title, desc, emoji: emoji || '🎯' });
+  
+  $('visionTitle').value = '';
+  $('visionDesc').value = '';
+  $('visionEmoji').value = '🎯';
+  
+  showNotif('✨','Vision Added','Your dream is saved');
+  unlock('dreamer');
+  renderInspiration();
+  saveState();
+}
+
+function removeVision(i) {
+  if (ST.visions) ST.visions.splice(i, 1);
+  renderInspiration();
+  saveState();
+}
+
+function nextMantra() {
+  const mantra = MANTRAS[manttraIndex % MANTRAS.length];
+  setText('dailyMantra', mantra);
+  manttraIndex++;
+}
+
+function addRandomMotivation() {
+  const quotes = MANTRAS;
+  const q = quotes[Math.floor(Math.random() * quotes.length)];
+  $('visionDesc').value = q;
+}
+
 function openCmd(){cmdIsOpen=true;$('cmd-bg').classList.add('open');$('cmdInput').value='';$('cmdInput').focus();filterCmd('');}
+
 function closeCmd(){cmdIsOpen=false;$('cmd-bg').classList.remove('open');}
 function filterCmd(q){
   const res=$('cmdResults'); res.innerHTML=''; cmdSelected=0;
@@ -2240,7 +2980,8 @@ function initParticles(){
 // ── BOOT ──────────────────────────────────────────────────────
 loadState();
 UNLOCKED = new Set(ST.unlockedAch||[]);
-document.documentElement.setAttribute('data-theme', ST.theme||'dark');
+ambientVolume = ST.ambientVolume || 0.4;
+document.documentElement.setAttribute('data-theme', ST.theme || 'dark');
 if(ST.accent){
   document.documentElement.style.setProperty('--blue-light',ST.accent);
   const r=parseInt(ST.accent.slice(1,3),16),g=parseInt(ST.accent.slice(3,5),16),b=parseInt(ST.accent.slice(5,7),16);
